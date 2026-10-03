@@ -1,0 +1,23 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.env
+
+uv.lock
+pyproject.toml
+.python-version
+src
+*.pyc
+.streamlit/secrets.toml
+
+test.pdf
+test_rag.py
+
+backend/__pycache__
