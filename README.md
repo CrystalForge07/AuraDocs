@@ -42,3 +42,7 @@ Answer
 - Sentence Transformers
 - FAISS
 - Groq API
+
+## Live Demo
+
+[Open AuraDocs]([YOUR_STREAMLIT_URL](https://auradocs-ag.streamlit.app/))
