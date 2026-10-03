@@ -45,4 +45,4 @@ Answer
 
 ## Live Demo
 
-[Open AuraDocs]([YOUR_STREAMLIT_URL](https://auradocs-ag.streamlit.app/))
+[Open AuraDocs](https://auradocs-ag.streamlit.app/)
