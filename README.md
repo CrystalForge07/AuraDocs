@@ -36,13 +36,13 @@ Answer
 
 ## Tech Stack
 - Python
-- Streamlit
 - LangChain
 - PyMuPDF
 - Sentence Transformers
 - FAISS
 - Groq API
+- Streamlit
 
-## Live Demo
+## Link
 
-[Open AuraDocs](https://auradocs-ag.streamlit.app/)
+[auradocs-ag](https://auradocs-ag.streamlit.app/)
