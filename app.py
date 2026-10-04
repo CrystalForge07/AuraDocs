@@ -1,4 +1,4 @@
-import hashlib
+import hashlib, base64
 import streamlit as st
 from backend.rag import process_pdf, ask_question
 
@@ -6,9 +6,17 @@ from backend.rag import process_pdf, ask_question
 
 st.set_page_config(
     page_title="AuraDocs",
-    page_icon="⭐",
+    page_icon="assets/auradocs_icon.png",
     layout="centered"
 )
+
+st.markdown("""
+<style>
+[data-testid="stSidebarCollapseButton"] {
+    display: none;
+}
+</style>
+""", unsafe_allow_html=True)
 
 with st.sidebar:
     st.header("⭐ AuraDocs")
@@ -37,9 +45,18 @@ if "file_name" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# UI
+with open("assets/auradocs_icon.png", "rb") as f:
+    icon = base64.b64encode(f.read()).decode()
 
-st.title("⭐ AuraDocs")
+st.markdown(
+    f"""
+    <div style="display:flex; align-items:center; gap:10px;">
+        <img src="data:image/png;base64,{icon}" width="70">
+        <h1 style="margin:0;">AuraDocs</h1>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
 st.caption("Ask questions about your documents.")
 
 st.divider()
@@ -56,7 +73,7 @@ if uploaded_file is not None:
 
     pdf_bytes = uploaded_file.getvalue()
 
-    # Create an unique identifier for this uploaded file
+    # Create an unique identifier for the uploaded file
     file_hash = hashlib.sha256(pdf_bytes).hexdigest()
 
     # Process only if this is a new PDF
@@ -79,18 +96,14 @@ if uploaded_file is not None:
 
         st.success(f"✅ **{uploaded_file.name}** is ready to chat!")
 
-# Show current document
-
 if st.session_state.vectorstore is not None:
-
-    # Display chat history
 
     for message in st.session_state.messages:
 
         with st.chat_message(message["role"]):
             st.write(message["content"])
 
-    # Question input
+    # Input question
 
     question = st.chat_input(
         "Ask a question about your document..."
@@ -98,7 +111,7 @@ if st.session_state.vectorstore is not None:
 
     if question and question.strip():
 
-        # Display user's question
+        # Display user's question.
         st.session_state.messages.append(
             {
                 "role": "user",
@@ -110,7 +123,7 @@ if st.session_state.vectorstore is not None:
             st.write(question)
 
 
-        # Get answer from backend
+        # Get answer from backend.
         with st.chat_message("assistant"):
 
             with st.spinner("Thinking..."):
@@ -124,10 +137,10 @@ if st.session_state.vectorstore is not None:
                     st.error("Something went wrong.")
                     st.stop()
 
-            st.markdown(answer)
+            st.markdown(answer) 
 
 
-        # Save answer to chat history
+        # Save answer to the chat history.
         st.session_state.messages.append(
             {
                 "role": "assistant",
